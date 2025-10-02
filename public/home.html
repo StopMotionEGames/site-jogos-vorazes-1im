@@ -24,6 +24,46 @@
             </ul>
         </div>
     </div>
+    <button id="toggle-theme">Tema Escuro</button>
+    <script>
+        const toggleButton = document.getElementById('toggle-theme');
+        toggleButton.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            document.getElementById('cabecalho').classList.toggle('dark-mode');
+
+            document.querySelectorAll('#nav li a').forEach(link => {
+                link.classList.toggle('dark-mode');
+            });
+
+            toggleButton.textContent = document.body.classList.contains('dark-mode') ? ' Tema Claro' : ' Tema Escuro';
+        });
+
+        // código teste
+        const ws = new WebSocket('ws://localhost:8443/ws');
+
+        ws.onopen = () => {
+            console.log('Connected to WebSocket server');
+            ws.send('Hello from client!');
+        };
+
+        ws.onmessage = event => {
+            console.log(`Received from server: ${event.data}`);
+        };
+
+        ws.onclose = () => {
+            console.log('Disconnected from WebSocket server');
+        };
+
+        ws.onerror = error => {
+            console.error('WebSocket error:', error);
+        };
+    </script>
+    <div id="divtext1">
+        <h1 id="apresentando">Apresentando: Jogos Vorazes da 1IM</h1>
+        <p id="text">Texto apresentando a competição Texto apresentando a competição Texto apresentando a competição
+            Texto apresentando a competição Texto apresentando a competição Texto apresentando a competição Texto
+            apresentando a competição</p>
+    </div>
 </body>
 
 </html>
