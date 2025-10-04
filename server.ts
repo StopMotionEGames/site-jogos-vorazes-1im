@@ -1,91 +1,108 @@
+// server.ts
 import fastify, { type FastifyRequest } from "fastify";
+import { pool } from "./bd_postgres/bd.ts";
 import path, { join } from "path";
 import { fileURLToPath } from "url";
 import fs from "fs/promises";
+import fsSync from "fs"; // para createWriteStream
 import fastifyStatic from "@fastify/static";
 import middie from "@fastify/middie";
 import fastifyCompress from "@fastify/compress";
-
 import webSocket from "@fastify/websocket";
+import fastifyMultipart from "@fastify/multipart";
 
-let __filename: string = fileURLToPath(import.meta.url);
-let __dirname: string = path.dirname(__filename);
+// Import das rotas
+import postsRoutes from "./routes/posts.ts";
 
-let port: number = 8443;
-let requisition: number = 0;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const app = fastify({
-  logger: false,
-  //   http2: true,
-  //   https: {
-  //     key: await fs.readFile(join(__dirname, "config", "ssl", "code.key")),
-  //     cert: await fs.readFile(join(__dirname, "config", "ssl", "code.crt")),
-  //     ca: await fs.readFile(join(__dirname, "config", "ssl", "code.csr")),
-  //   },
-});
-// await app.register(fastifyCompress, {
-//   global: true,
-//   encodings: ["gzip", "deflate", "br"],
-// });
+const app = fastify({ logger: false });
+const port = 8443;
+let requisition = 0;
 
+// -------------------------
+// REGISTRO DE PLUGINS
+// -------------------------
+
+// WebSocket
 await app.register(webSocket);
+
+// Middie para middleware estilo Express
 await app.register(middie);
+
+// Arquivos estáticos (public/)
 await app.register(fastifyStatic, {
   root: join(__dirname, "public"),
   prefix: "/",
   decorateReply: true,
 });
 
+// Multipart para upload de arquivos
+await app.register(fastifyMultipart, {
+  limits: { fileSize: 200 * 1024 * 1024 }, // 200 MB
+});
+
+// Rotas
+await app.register(postsRoutes, { prefix: "/api" });
+
+// Compress (opcional)
+// await app.register(fastifyCompress, { global: true, encodings: ["gzip", "deflate", "br"] });
+
+// -------------------------
+// MIDDLEWARE PARA LOG
+// -------------------------
+app.use((request: FastifyRequest, reply, next) => {
+  console.log("\nRequisição:", requisition++);
+  console.log("IP:", request.ip);
+  console.log("URL:", request.url);
+  console.log("StatusCode:", reply.statusCode);
+  next();
+});
+
+// -------------------------
+// ROTA PRINCIPAL
+// -------------------------
+app.get("/", async (request, reply) => {
+  const html = (await fs.readFile(join(__dirname, "public", "home.html"))).toString();
+  reply.header("content-type", "text/html");
+  reply.send(html);
+});
+
+// -------------------------
+// ROTA WEBSOCKET EXEMPLO
+// -------------------------
+app.get("/ws", { websocket: true }, (socket) => {
+  let a = 0;
+  socket.on("message", (message) => {
+    console.log("Received message:", message);
+  });
+
+  const interval = setInterval(() => {
+    a++;
+    socket.send(`enviando mensagem ${a}`);
+  }, 1000);
+
+  socket.on("close", () => {
+    console.log("Client disconnected");
+    clearInterval(interval);
+  });
+
+  socket.on("error", (error) => console.error("WebSocket error:", error));
+});
+
+// -------------------------
+// INICIAR SERVIDOR
+// -------------------------
 app
-  .listen({ port: port, host: "::" })
+  .listen({ port, host: "::" })
   .then(() => {
-    console.log("listening on:", app.server.address());
-    console.log("You can access the site by the following links:");
+    console.log("Servidor rodando em:");
     console.log("http://localhost:" + port);
     console.log("http://127.0.0.1:" + port);
     console.log("http://[::]:" + port);
   })
   .catch((err) => {
-    console.error(err);
-    process.exit(-1);
+    console.error("Erro ao iniciar servidor:", err);
+    process.exit(1);
   });
-
-app.use((request: FastifyRequest, reply, next) => {
-  console.log("\nRequisição:", requisition++);
-  console.log(request.ip);
-  console.log(request.url);
-  console.log(reply.statusCode);
-  next();
-});
-app.get("/", async (request, reply) => {
-  const html = (
-    await fs.readFile(join(__dirname, "public", "home.html"))
-  ).toString();
-  reply.header("content-type", "text/html");
-  reply.send(html);
-});
-
-// websocket vai ser colocado aqui para deixar em tempo real!
-// código de example
-app.get("/ws", { websocket: true }, function wsHandler(socket, req) {
-  // Handle incoming messages from the client
-  socket.on("message", (message) => {
-    console.log(`Received message: ${message}`);
-    let a = 0;
-    // Send a response back to the client
-    setInterval(() => {
-      a++;
-      socket.send(`enviando mensagem ${a}`);
-    }, 1000);
-  });
-
-  // Handle connection close event
-  socket.on("close", () => {
-    console.log("Client disconnected");
-  });
-
-  // Handle errors
-  socket.on("error", (error) => {
-    console.error("WebSocket error:", error);
-  });
-});
