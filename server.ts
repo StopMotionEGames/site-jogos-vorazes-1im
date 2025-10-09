@@ -13,6 +13,7 @@ import fastifyMultipart from "@fastify/multipart";
 
 // Import das rotas
 import postsRoutes from "./routes/posts.ts";
+import { createTables } from "./bd_postgres/createTableUsers.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -64,7 +65,9 @@ app.use((request: FastifyRequest, reply, next) => {
 // ROTA PRINCIPAL
 // -------------------------
 app.get("/", async (request, reply) => {
-  const html = (await fs.readFile(join(__dirname, "public", "home.html"))).toString();
+  const html = (
+    await fs.readFile(join(__dirname, "public", "home.html"))
+  ).toString();
   reply.header("content-type", "text/html");
   reply.send(html);
 });
@@ -94,13 +97,25 @@ app.get("/ws", { websocket: true }, (socket) => {
 // -------------------------
 // INICIAR SERVIDOR
 // -------------------------
-app
-  .listen({ port, host: "::" })
+app.listen({ port, host: "::" })
   .then(() => {
     console.log("Servidor rodando em:");
     console.log("http://localhost:" + port);
     console.log("http://127.0.0.1:" + port);
     console.log("http://[::]:" + port);
+
+    pool
+      .connect()
+      .then(() => {
+        console.log("Conectado ao banco de dados PostgreSQL");
+        createTables().then(() => {
+          console.log("Tabelas verificadas/criadas");
+        });
+      })
+      .catch((err) => {
+        console.error("Erro ao conectar ao banco de dados:", err);
+        process.exit(1);
+      });
   })
   .catch((err) => {
     console.error("Erro ao iniciar servidor:", err);
