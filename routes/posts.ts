@@ -1,5 +1,5 @@
 // routes/posts.ts
-import { FastifyInstance } from "fastify";
+import { type FastifyInstance } from "fastify";
 import { pool } from "../bd_postgres/bd.ts";
 import path, { join } from "path";
 import fs from "fs";            // para createWriteStream
