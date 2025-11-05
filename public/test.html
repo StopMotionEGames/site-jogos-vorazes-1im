@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel de Posts Acessível</title>
+
+    <style>
+      /* ---------- ESTILO GERAL ---------- */
+      body {
+        font-family: Arial, sans-serif;
+        background: #f3f3f3;
+        color: #222;
+        padding: 20px;
+        line-height: 1.5;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      form {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      textarea,
+      input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      button {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background: #0056b3;
+      }
+
+      /* ---------- POSTS ---------- */
+      #display-posts {
+        background: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .post {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+      }
+
+      .post img,
+      .post video {
+        display: block;
+        margin-top: 10px;
+        border-radius: 8px;
+        max-width: 100%;
+      }
+
+      .post button {
+        background: #dc3545;
+        margin-top: 10px;
+      }
+
+      .post button:hover {
+        background: #b02a37;
+      }
+
+      /* ---------- ACESSIBILIDADE ---------- */
+      [role="list"] {
+        list-style: none;
+        padding: 0;
+      }
+
+      [role="listitem"] {
+        margin-bottom: 15px;
+      }
+
+      /* Foco visível para teclado */
+      button:focus,
+      input:focus,
+      textarea:focus {
+        outline: 3px solid #007bff;
+        outline-offset: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="titulo-pagina">Publicações</h1>
+
+    <form
+      id="postform"
+      enctype="multipart/form-data"
+      aria-labelledby="titulo-pagina"
+    >
+      <label for="user_id">ID do Usuário</label>
+      <input
+        type="text"
+        id="user_id"
+        name="user_id"
+        aria-required="true"
+        required
+      />
+
+      <label for="content">Conteúdo do Post</label>
+      <textarea
+        id="content"
+        name="content"
+        rows="3"
+        aria-required="true"
+        required
+      ></textarea>
+
+      <label for="file">Imagem ou Vídeo (opcional)</label>
+      <input type="file" id="file" name="file" accept="image/*,video/*" />
+
+      <button type="submit" aria-label="Publicar novo post">Publicar</button>
+    </form>
+
+    <section
+      id="display-posts"
+      role="list"
+      aria-label="Lista de posts recentes"
+    >
+      <p>Nenhum post carregado ainda.</p>
+    </section>
+    <button id="to-post">Publicar hahhhahahahahahahah</button>
+    <div id="posts-container"></div>
+    <script src="js/posts.js" defer></script>
+  </body>
+</html>

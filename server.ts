@@ -1,6 +1,5 @@
 // server.ts
 import fastify, { type FastifyRequest } from "fastify";
-import { pool } from "./bd_postgres/bd.ts";
 import path, { join } from "path";
 import { fileURLToPath } from "url";
 import fs from "fs/promises";
@@ -12,8 +11,12 @@ import webSocket from "@fastify/websocket";
 import fastifyMultipart from "@fastify/multipart";
 
 // Import das rotas
-import postsRoutes from "./routes/posts.ts";
-import { createTables } from "./bd_postgres/createTableUsers.ts";
+import postsRoutes from "./routes/posts.mts";
+import authRoutes from "./routes/auth.mts";
+import commentsRoutes from "./routes/comments.mts";
+import custonSetingsRoutes from "./routes/custonSetings.mts";
+import { createTables } from "./bd_postgres/createTableUsers.mts";
+import { pool } from "./bd_postgres/bd.mts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -38,7 +41,6 @@ await app.register(fastifyStatic, {
   prefix: "/",
   decorateReply: true,
 });
-
 // Multipart para upload de arquivos
 await app.register(fastifyMultipart, {
   limits: { fileSize: 200 * 1024 * 1024 }, // 200 MB
@@ -46,7 +48,9 @@ await app.register(fastifyMultipart, {
 
 // Rotas
 await app.register(postsRoutes, { prefix: "/api" });
-
+await app.register(authRoutes, { prefix: "/api" });
+await app.register(custonSetingsRoutes, { prefix: "/api" });
+await app.register(commentsRoutes, { prefix: "/api" });
 // Compress (opcional)
 // await app.register(fastifyCompress, { global: true, encodings: ["gzip", "deflate", "br"] });
 
@@ -97,7 +101,8 @@ app.get("/ws", { websocket: true }, (socket) => {
 // -------------------------
 // INICIAR SERVIDOR
 // -------------------------
-app.listen({ port, host: "::" })
+app
+  .listen({ port, host: "::" })
   .then(() => {
     console.log("Servidor rodando em:");
     console.log("http://localhost:" + port);

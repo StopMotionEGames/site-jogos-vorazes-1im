@@ -1,20 +1,19 @@
 // routes/posts.ts
 import { type FastifyInstance } from "fastify";
-import { pool } from "../bd_postgres/bd.ts";
+import { pool } from "../bd_postgres/bd.mts";
 import path, { join } from "path";
-import fs from "fs";            // para createWriteStream
-import fsp from "fs/promises";  // para mkdir, readFile etc.
+import fs from "fs"; // para createWriteStream
+import fsp from "fs/promises"; // para mkdir, readFile etc.
 
 export default async function postsRoutes(app: FastifyInstance) {
-  
   // Criar um post
   app.post("/posts", async (request, reply) => {
     // Pega arquivo do upload (fastify-multipart)
     const data = await request.file?.();
-    const body = request.body as any;
 
-    const { user_id, content } = body;
+    const { user_id, content } = request.body as any;
 
+    // const { user_id, title, content } = body;
     let mediaUrl: string | null = null;
     let mediaType: string | null = null;
     let duration: number | null = null;
@@ -29,7 +28,7 @@ export default async function postsRoutes(app: FastifyInstance) {
 
       // Salvar arquivo fisicamente
       const stream = fs.createWriteStream(filepath);
-      await data.file.pipe(stream);
+      data.file.pipe(stream);
 
       mediaUrl = "/uploads/" + filename;
 
@@ -69,7 +68,7 @@ export default async function postsRoutes(app: FastifyInstance) {
   app.delete("/posts/:id", async (request, reply) => {
     const { id } = request.params as { id: string };
     const result = await pool.query(
-      "DELETE FROM posts WHERE id = $1 RETURNING *", 
+      "DELETE FROM posts WHERE id = $1 RETURNING *",
       [id]
     );
 

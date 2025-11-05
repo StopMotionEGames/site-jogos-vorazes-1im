@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="login-form">
+        <input type="text" name="email" id="email-input" placeholder="E-mail">
+        <input type="text" name="password" id="password-input" placeholder="Senha">
+        <input type="submit" value="Login" id="submit-button">
+    </form>
+    <script>
+        document.getElementById("login-form").addEventListener("submit", async (e)=>{
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+
+            
+        })
+    </script>
+</body>
+</html>

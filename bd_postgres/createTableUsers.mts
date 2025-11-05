@@ -1,8 +1,9 @@
-// createTableUsers.ts
-import { pool } from "./bd.ts";
+// createTableUsers.mts
+import { pool } from "./bd.mts";
 
 export async function createTables() {
   try {
+    // Cria tabela de usuários
     await pool.query(`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
@@ -13,6 +14,7 @@ export async function createTables() {
       );
     `);
 
+    // Cria tabela de posts
     await pool.query(`
       CREATE TABLE IF NOT EXISTS posts (
         id SERIAL PRIMARY KEY,
@@ -26,6 +28,7 @@ export async function createTables() {
       );
     `);
 
+    // Usuário administrador
     await pool.query(
       `INSERT INTO users (name, email, password)
        VALUES ($1, $2, $3)
@@ -33,7 +36,25 @@ export async function createTables() {
       ["Admin", "admin@email.com", "123456"]
     );
 
-    console.log("Tabelas criadas ou já existentes.");
+    // Usuário cliente com ID fixo (1125)
+    await pool.query(
+      `
+      INSERT INTO users (id, name, email, password)
+      VALUES ($1, $2, $3, $4)
+      ON CONFLICT (email) DO NOTHING;
+    `,
+      [1125, "User", "user@email.com", "654321"]
+    );
+
+    // Atualiza a sequência automática para evitar conflito futuro
+    await pool.query(`
+      SELECT setval(pg_get_serial_sequence('users', 'id'),
+      GREATEST((SELECT MAX(id) FROM users), 1));
+    `);
+
+    console.log(
+      "Tabelas criadas e usuários inseridos (incluindo ID fixo 1125)."
+    );
   } catch (error) {
     console.error("Erro criando tabelas:", error);
     throw error;
