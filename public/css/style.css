@@ -13,6 +13,11 @@ body {
     background-color: #f4dfb2;
 }
 
+/* CABEÇALHO */
+header {
+    background-color: #e2b042;
+}
+
 #logo {
     margin: 20px auto;
     width: 350px;
@@ -29,9 +34,9 @@ body {
     justify-content: space-between;
 }
 
+/* NAVEGAÇÃO */
 #nav {
     padding-top: 70px;
-    margin: 0, 20%;
 }
 
 #nav li {
@@ -42,8 +47,8 @@ body {
 #nav li a {
     text-decoration: none;
     color: #f4dfb2;
-    float: left;
     padding: 10px;
+    float: left;
 }
 
 #nav li a:hover {
@@ -56,26 +61,9 @@ body {
     background-color: #e9cf97 !important;
     color: #d8ab48 !important;
     border-radius: 10px;
-
 }
 
-#toggle-theme {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    padding: 10px 15px;
-    background-color: #d8ab48;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-#toggle-theme:hover {
-    background-color: #b88e2c;
-}
-
+/* TEMA ESCURO */
 body.dark-mode {
     background-color: #1e1e1e;
     color: #f4dfb2;
@@ -89,29 +77,62 @@ body.dark-mode {
     color: #f4dfb2;
 }
 
-#nav li a.dark-mode:hover {
-    background-color: #f4dfb2;
-    color: #333;
+/* CONTEÚDO PRINCIPAL */
+main {
+    background-color: black;
+    width: 100%;
 }
 
-#apresentando {
-    margin: 50px auto;
-    width: 80%;
-    text-align: center;
+/* ÁREA DE POSTS (WhatsApp style) */
+#display-posts {
+    width: 100%;
+    min-height: 100vh;
+    padding: 10px;
+    overflow-y: auto;
+    background-color:#1526;
+    display: flex;
+    flex-direction: colu        mn;
+    gap: 10px;  
+}   
+
+/* FORMULÁRIO */
+#form {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #111;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
 }
 
-#divtext1 {
-    font-size: 20px;
-    color: #3d3420;
-    margin-bottom: 20px;
-    max-width: 1600px;
-    padding: 6px;
-    border-radius: 10px;
-    position: relative;
-    justify-self: center;
+#request {
+    width: 90%;
+    display: flex;
+    gap: 10px;
 }
 
-#text {
-    text-align: justify;
-    padding-bottom: 24px;
+#witter {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+}
+
+/* BOTÃO REDONDO (igual WhatsApp) */
+#submit-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #25D366;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
