@@ -7,6 +7,68 @@
     <link rel="stylesheet" href="css/style.css" />
     <link rel="icon" href="media/logos/Logo.png" type="image/png" />
     <title>Jogos Vorazes - Notícias</title>
+    <style>
+      .create-post--container {
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        width: 100px;
+        height: 40px;
+        align-items: center;
+
+        button {
+          border-radius: 8px;
+          border: none;
+          display: inline-block;
+          padding: 8px;
+
+          background-color: #ffffff;
+        }
+      }
+
+      section {
+        margin-top: 16px;
+
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        align-items: center;
+
+        flex-direction: column;
+
+        img,
+        video {
+          max-width: 900px;
+        }
+
+        .post {
+          background-color: #fff;
+          min-width: 300px;
+          padding: 16px;
+
+          h3 {
+            padding: 8px;
+          }
+
+          p {
+            padding-inline: 8px;
+            padding-block: 20px;
+            background-color: #eee;
+            border-radius: 4px;
+            margin-block: 8px;
+          }
+
+          button {
+            margin-block: 8px;
+            border-radius: 4px;
+            border: none;
+            background-color: #ff8585;
+            padding: 4px;
+          }
+        }
+      }
+    </style>
   </head>
 
   <body>
@@ -26,10 +88,13 @@
 
     <button id="toggle-theme">Tema Escuro</button>
 
-    <div id="posts-container">
-      
+    <section id="display-posts" role="list" aria-label="Lista de posts recentes">
+      <p>Nenhum post carregado ainda.</p>
+    </section>
+    <div id="posts-container"></div>
+    <div class="create-post--container" id="theOne">
+      <button id="to-post">Criar post</button>
     </div>
-
     <script src="/js/Script.js"></script>
     <script src="/js/posts.js"></script>
   </body>
