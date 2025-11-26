@@ -1,138 +1,259 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
 }
-
-:root[data-color-scheme="dark"] {
-    --text-color: #fff;
-}
-
 body {
-    background-color: #f4dfb2;
+  background-color: #f4dfb2;
 }
 
-/* CABEÇALHO */
-header {
-    background-color: #e2b042;
+li {
+  list-style: none;
 }
-
 #logo {
-    margin: 20px auto;
-    width: 350px;
-    padding-left: 30px;
-    float: left;
+  margin: 20px auto;
+  width: 350px;
+  padding-left: 30px;
+  float: left;
 }
 
 #cabecalho {
-    position: relative;
-    width: 100%;
-    height: 200px;
-    background-color: #e2b042;
-    align-items: center;
-    justify-content: space-between;
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background-color: #e2b042;
+  align-items: center;
+  justify-content: space-between;
 }
-
-/* NAVEGAÇÃO */
 #nav {
-    padding-top: 70px;
+  padding-top: 70px;
+  margin: 0, 20%;
 }
-
 #nav li {
-    list-style: none;
-    padding-left: 30px;
+  list-style: none;
+  padding-left: 30px;
 }
 
 #nav li a {
-    text-decoration: none;
-    color: #f4dfb2;
-    padding: 10px;
-    float: left;
+  text-decoration: none;
+  color: #f4dfb2;
+  float: left;
+  padding: 10px;
 }
 
 #nav li a:hover {
-    background-color: #f4dfb2;
-    color: #e2b042;
-    border-radius: 10px;
+  background-color: #f4dfb2;
+  color: #e2b042;
+  border-radius: 10px;
 }
 
 .on {
-    background-color: #e9cf97 !important;
-    color: #d8ab48 !important;
-    border-radius: 10px;
+  background-color: #e9cf97 !important;
+  color: #d8ab48 !important;
+  border-radius: 10px;
 }
 
-/* TEMA ESCURO */
+#admin-button {
+  right: 150px;
+}
+
+#toggle-theme,
+#admin-button {
+  position: absolute;
+  top: 20px;
+  padding: 10px 15px;
+  background-color: #d8ab48;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#toggle-theme {
+  right: 30px;
+}
+
+#toggle-theme:hover,
+#admin-button:hover {
+  background-color: #b88e2c;
+}
+
 body.dark-mode {
-    background-color: #1e1e1e;
-    color: #f4dfb2;
+  background-color: #1e1e1e;
+  color: #ffefce;
 }
 
 #cabecalho.dark-mode {
-    background-color: #e2af4267;
+  background-color: #ffa100ab;
 }
 
 #nav li a.dark-mode {
-    color: #f4dfb2;
+  color: #f4dfb2;
 }
 
-/* CONTEÚDO PRINCIPAL */
-main {
-    background-color: black;
-    width: 100%;
+#nav li a.dark-mode:hover {
+  background-color: #f4dfb2;
+  color: #333;
 }
 
-/* ÁREA DE POSTS (WhatsApp style) */
-#display-posts {
-    width: 100%;
-    min-height: 100vh;
-    padding: 10px;
-    overflow-y: auto;
-    background-color:#1526;
-    display: flex;
-    flex-direction: colu        mn;
-    gap: 10px;  
-}   
-
-/* FORMULÁRIO */
-#form {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: #111;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
+#apresentando {
+  margin: 50px auto;
+  width: 80%;
+  text-align: center;
 }
 
-#request {
-    width: 90%;
-    display: flex;
-    gap: 10px;
+#divtext1 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  max-width: 1600px;
+  padding: 6px;
+  padding-left: 25px;
+  border-radius: 10px;
+  position: relative;
+  justify-self: center;
 }
 
-#witter {
-    flex: 1;
-    padding: 10px;
-    border-radius: 20px;
-    border: none;
+#text {
+  text-align: justify;
+  padding-bottom: 24px;
+  padding: 25px;
 }
 
-/* BOTÃO REDONDO (igual WhatsApp) */
-#submit-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background-color: #25D366;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-weight: bold;
+#carousel-container {
+  max-width: 1000px; /* Largura máxima do carrossel */
+  position: relative;
+  margin: 50px auto;
+  overflow: hidden; /* Garante que apenas o slide visível apareça */
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-nav{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+
+.carousel-slide {
+  display: none; /* O JS vai controlar qual slide mostrar */
+  width: 100%;
+  position: relative;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.carousel-caption {
+  color: #f4dfb2;
+  font-size: 20px;
+  padding: 15px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.7); /* Fundo semi-transparente para o texto */
+}
+
+/* Botões Anterior e Próximo */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Indicadores de slide (os pontos) */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active,
+.dot:hover {
+  background-color: #e2b042;
+}
+
+/* Efeito de transição */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Container principal - define a grade */
+#teamsContainer {
+  display: grid;
+  /* 3 colunas de largura igual (1fr) */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Estilo para cada bloco de equipe */
+#goiabichas,
+#provorazes,
+#enroladinhos {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para as logos */
+.team-logo {
+  width: 120px; /* Tamanho da imagem */
+  height: 120px;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
+
+/* Estilo para o texto dos integrantes */
+.integrantes {
+  font-size: 0.9em;
+  color: #333;
+  margin-top: 5px;
+}
+
+/* Responsividade básica: 1 coluna em telas muito pequenas */
+@media (max-width: 600px) {
+  #teamsContainer {
+    grid-template-columns: 1fr;
+  }
 }

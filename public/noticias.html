@@ -1,40 +1,37 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="media/img/Logo.png" type="image/png">
-    <title>Jogos Vorazes</title>
-</head>
-<body>
-    <div id="cabecalho">
-        <img src="media/img/Logo_2.png" alt="Logo Jogos Vorazes" id="logo">
 
-        <div class="title">
-            <ul id="nav">
-                <li><a href="home.html">Home</a></li>
-                <li><a href="sobre_os_jogos.html">Sobre</a></li>
-                <li><a href="equipes.html">Equipes</a></li>
-                <li><a href="classificação.html">Classificação</a></li>
-                <li><a href="#" class="on">Notícias</a></li>
-                <li><a href="galeria.html">Galeria</a></li>
-            </ul>
-        </div>
-    </div>    
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" href="media/logos/Logo.png" type="image/png" />
+    <title>Jogos Vorazes - Notícias</title>
+  </head>
+
+  <body>
+    <div id="cabecalho">
+      <img src="media/logos/Logo_2.png" alt="Logo Jogos Vorazes" id="logo" />
+
+      <div class="title">
+        <ul id="nav">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="sobre_os_jogos.html">Sobre</a></li>
+          <li><a href="equipes.html">Equipes</a></li>
+          <li><a href="#" class="on">Notícias</a></li>
+        </ul>
+      </div>
+    </div>
+    <button id="admin-button">Entrar como Admin</button>
+
     <button id="toggle-theme">Tema Escuro</button>
-    <script>
-        const toggleButton = document.getElementById('toggle-theme');
-        toggleButton.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            document.getElementById('cabecalho').classList.toggle('dark-mode');
-    
-            document.querySelectorAll('#nav li a').forEach(link => {
-                link.classList.toggle('dark-mode');
-            });
-    
-            toggleButton.textContent = document.body.classList.contains('dark-mode') ? ' Tema Claro' : ' Tema Escuro';
-        });
-    </script>
-</body>
+
+    <div id="posts-container">
+      
+    </div>
+
+    <script src="/js/Script.js"></script>
+    <script src="/js/posts.js"></script>
+  </body>
+
 </html>

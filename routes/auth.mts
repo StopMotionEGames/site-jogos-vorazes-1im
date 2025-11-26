@@ -48,14 +48,17 @@ export default async function registrationRoutes(app: FastifyInstance) {
       ]);
       const user = result.rows[0];
 
+      console.table(result);
+      console.table(user);
       if (!user)
         return reply.status(401).send({ error: "Credenciais inválidas." });
 
-      const passwordMatch = await bcrypt.compare(password, user.password);
+      const passwordMatch = password === user.password;
+      console.log(!passwordMatch);
       if (!passwordMatch)
         return reply.status(401).send({ error: "Credenciais inválidas." });
 
-      reply.send({ id: user.id, name: user.name, email: user.email });
+      reply.send({ id: user.id, email: user.email });
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       reply.status(500).send({ error: "Erro ao fazer login." });

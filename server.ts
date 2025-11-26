@@ -14,8 +14,8 @@ import fastifyMultipart from "@fastify/multipart";
 import postsRoutes from "./routes/posts.mts";
 import authRoutes from "./routes/auth.mts";
 import commentsRoutes from "./routes/comments.mts";
-import custonSetingsRoutes from "./routes/custonSetings.mts";
-import { createTables } from "./bd_postgres/createTableUsers.mts";
+import customSettingsRoutes from "./routes/customSettings.mts";
+import { createTables } from "./bd_postgres/DBSetup.mts";
 import { pool } from "./bd_postgres/bd.mts";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -43,13 +43,14 @@ await app.register(fastifyStatic, {
 });
 // Multipart para upload de arquivos
 await app.register(fastifyMultipart, {
-  limits: { fileSize: 200 * 1024 * 1024 }, // 200 MB
+  limits: { fileSize: 200 * 1024 * 1024 },
+  attachFieldsToBody: true, // 200 MB
 });
 
 // Rotas
 await app.register(postsRoutes, { prefix: "/api" });
 await app.register(authRoutes, { prefix: "/api" });
-await app.register(custonSetingsRoutes, { prefix: "/api" });
+await app.register(customSettingsRoutes, { prefix: "/api" });
 await app.register(commentsRoutes, { prefix: "/api" });
 // Compress (opcional)
 // await app.register(fastifyCompress, { global: true, encodings: ["gzip", "deflate", "br"] });

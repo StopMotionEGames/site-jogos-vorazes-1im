@@ -19,10 +19,11 @@ export async function createTables() {
       CREATE TABLE IF NOT EXISTS posts (
         id SERIAL PRIMARY KEY,
         user_id INT NOT NULL,
+        title VARCHAR(100),
         content TEXT,
-        media_url VARCHAR(255),
-        media_type VARCHAR(50),
-        duration INT,
+        media_url VARCHAR(255) NULL,
+        media_type VARCHAR(50) NULL,
+        duration INT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
       );
@@ -30,20 +31,10 @@ export async function createTables() {
 
     // Usuário administrador
     await pool.query(
-      `INSERT INTO users (name, email, password)
-       VALUES ($1, $2, $3)
+      `INSERT INTO users (id, name, email, password)
+       VALUES ($1, $2, $3, $4)
        ON CONFLICT (email) DO NOTHING;`,
-      ["Admin", "admin@email.com", "123456"]
-    );
-
-    // Usuário cliente com ID fixo (1125)
-    await pool.query(
-      `
-      INSERT INTO users (id, name, email, password)
-      VALUES ($1, $2, $3, $4)
-      ON CONFLICT (email) DO NOTHING;
-    `,
-      [1125, "User", "user@email.com", "654321"]
+      [1125, "Admin", "adm@jogosvorazes1m.org", "senhasimples"]
     );
 
     // Atualiza a sequência automática para evitar conflito futuro

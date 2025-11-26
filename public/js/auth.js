@@ -21,7 +21,6 @@ class Auth {
     this.form.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.1)";
 
     // Campos
-    this.nameInput = this.createInput("text", "name", "Nome");
     this.emailInput = this.createInput("email", "email", "E-mail");
     this.passwordInput = this.createInput("password", "password", "Senha");
 
@@ -45,7 +44,6 @@ class Auth {
 
     // Adiciona tudo ao form
     this.form.append(
-      this.nameInput,
       this.emailInput,
       this.passwordInput,
       this.submitButton,
@@ -77,12 +75,10 @@ class Auth {
   // Envia o formulário
   async handleSubmit(e) {
     e.preventDefault();
-
-    const name = this.nameInput.value.trim();
     const email = this.emailInput.value.trim();
     const password = this.passwordInput.value.trim();
 
-    if (!name || !email || !password) {
+    if (!email || !password) {
       this.showMessage("Preencha todos os campos!", "red");
       return;
     }
@@ -90,21 +86,21 @@ class Auth {
     this.showMessage("Enviando...", "black");
 
     try {
-      const res = await fetch("/register", {
+      const res = await fetch("/api/login", {
         // endpoint ajustado
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        this.showMessage(data.error || "Erro ao cadastrar!", "red");
+        this.showMessage(data.error || "Erro ao logar!", "red");
       } else {
-        this.showMessage(`Usuário ${data.name} cadastrado!`, "green");
+        this.showMessage(`Logado como ADM!`, "green");
         this.form.reset();
-        localStorage.setItem("userId", data.id); // apenas id
+        localStorage.setItem("userId", data.id); // totalmente inseguro, mas funciona
       }
     } catch (err) {
       this.showMessage("Erro de conexão com o servidor.", "red");

@@ -1,4 +1,5 @@
 const API = "/api/posts";
+const userId = Number(localStorage.getItem("userId")); // totalmente inseguro
 
 class Posts {
   constructor() {
@@ -57,22 +58,17 @@ class Posts {
     this.message.style.fontSize = "14px";
 
     // Adiciona inputs ao form
-    this.formposts.append(
-      this.titleinp,
-      this.contentinp,
-      this.mediaInput,
-      this.submitbtn,
-      this.message
-    );
+    this.formposts.append(this.titleinp, this.contentinp, this.mediaInput, this.submitbtn, this.message);
 
     // Adiciona form ao container
     this.container.appendChild(this.formposts);
 
     // Evento para mostrar/esconder formulário ao clicar no botão
-    this.createPostsBtn.addEventListener("click", () => {
-      this.formposts.style.display =
-        this.formposts.style.display === "none" ? "flex" : "none";
-    });
+
+    if (!!userId)
+      this.createPostsBtn.addEventListener("click", () => {
+        this.formposts.style.display = this.formposts.style.display === "none" ? "flex" : "none";
+      });
 
     // Evento de envio
     this.formposts.addEventListener("submit", (e) => this.handleSubmit(e));
@@ -137,6 +133,7 @@ class Posts {
       });
 
       const data = await res.json();
+      console.log(data.message);
 
       if (!res.ok) {
         this.showMessage(data.error || "Erro ao criar post!", "red");
@@ -168,14 +165,27 @@ class Posts {
       this.showMessage("Erro ao carregar posts.", "red");
     }
   }
+  async deletePost(postID) {
+    const formdata = new FormData();
+    formdata.append("id", 1125);
 
+    const res = await fetch(`${API}/${postID}`, { body: formdata, method: "delete" });
+    console.log(await res.text());
+    location.reload();
+  }
   appendPost(post) {
     const postDiv = document.createElement("div");
+    postDiv.setAttribute("data-post-id", post.id);
     postDiv.classList.add("post");
     postDiv.style.border = "1px solid #ccc";
     postDiv.style.padding = "10px";
     postDiv.style.marginBottom = "10px";
     postDiv.style.borderRadius = "5px";
+
+    const btnDelete = document.createElement("button");
+    btnDelete.addEventListener("click", () => {
+      this.deletePost(post.id);
+    });
 
     let mediaHTML = "";
     if (post.media_type === "image") {
@@ -191,7 +201,7 @@ class Posts {
       <small>Criado por: ${post.user_name || "Usuário"}</small>
       <hr>
     `;
-
+    if (!!userId) postDiv.appendChild(btnDelete);
     this.displayPosts.appendChild(postDiv);
   }
 }

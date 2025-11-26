@@ -1,40 +1,89 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
+
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" href="media/img/Logo.png" type="image/png">
+    <link rel="icon" href="media/logos/Logo.png" type="image/png">
     <title>Jogos Vorazes</title>
-</head>
-<body>
-    <div id="cabecalho">
-        <img src="media/img/Logo_2.png" alt="Logo Jogos Vorazes" id="logo">
+  </head>
 
-        <div class="title">
-            <ul id="nav">
-                <li><a href="home.html">Home</a></li>
-                <li><a href="#" class="on">Sobre</a></li>
-                <li><a href="equipes.html">Equipes</a></li>
-                <li><a href="classificação.html">Classificação</a></li>
-                <li><a href="noticias.html">Notícias</a></li>
-                <li><a href="galeria.html">Galeria</a></li>
-            </ul>
-        </div>
-    </div>    
+  <body>
+    <div id="cabecalho">
+      <img src="media/logos/Logo_2.png" alt="Logo Jogos Vorazes" id="logo">
+
+      <div class="title">
+        <ul id="nav">
+          <li><a href="home.html">Home</a></li>
+          <li><a href="#" class="on">Sobre</a></li>
+          <li><a href="equipes.html">Equipes</a></li>
+          <li><a href="noticias.html">Notícias</a></li>
+        </ul>
+      </div>
+    </div>
+    <button id="admin-button">Entrar como Admin</button>
     <button id="toggle-theme">Tema Escuro</button>
     <script>
-        const toggleButton = document.getElementById('toggle-theme');
-        toggleButton.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            document.getElementById('cabecalho').classList.toggle('dark-mode');
-    
-            document.querySelectorAll('#nav li a').forEach(link => {
-                link.classList.toggle('dark-mode');
-            });
-    
-            toggleButton.textContent = document.body.classList.contains('dark-mode') ? ' Tema Claro' : ' Tema Escuro';
+      const toggleButton = document.getElementById('toggle-theme');
+      toggleButton.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        document.getElementById('cabecalho').classList.toggle('dark-mode');
+
+        document.querySelectorAll('#nav li a').forEach(link => {
+          link.classList.toggle('dark-mode');
         });
+
+        toggleButton.textContent = document.body.classList.contains('dark-mode') ? ' Tema Claro' : ' Tema Escuro';
+      });
     </script>
-</body>
+    <div id="divtext1">
+      <h1 id="apresentando">Sobre os Jogos Vorazes da 1IM</h1>
+      <p id="text">
+        Os Jogos Vorazes do IFSul Gravataí, elaborados com maestria quase cinematográfica pelo estimado professor Lucas,
+        emergem como uma das iniciativas mais ousadas, excêntricas e, de certa forma, inesperadamente épicas jamais
+        vistas dentro do universo acadêmico da turma 1IM. Trata-se de uma competição que, embora não envolva florestas
+        traiçoeiras, arenas futuristas ou flechas flamejantes, carrega em si um espírito tão aventuresco e criativo que
+        é impossível não ser comparada às sagas mais lendárias já concebidas pelo imaginário popular. Aliás, poderia se
+        dizer que nunca antes, na história das atividades escolares relacionadas à disciplina de Criatividade, houve
+        algo tão intensamente detalhado, tão cuidadosamente pensado e tão… elaboradamente enrolado quanto este grandioso
+        evento.
+      </p>
+      <p id="text">
+        Desde o momento em que o professor Lucas, com seu típico ar de quem arquitetou algo genial durante o recreio,
+        anunciou a competição, a turma 1IM se viu envolvida por uma aura de suspense, expectativa e, claro, aquela
+        pitada de caos organizado que apenas um professor de Criatividade consegue proporcionar. Não se tratava apenas
+        de participar: era necessário imaginar, criar, improvisar, reinventar, questionar, rir, debater, e — por vezes —
+        entrar em colapso existencial leve sobre qual seria o próximo desafio apresentado. Tudo isso, evidentemente,
+        dentro de um espírito extremamente competitivo, mas peculiarmente colaborativo, pois nos Jogos Vorazes do IFSul
+        Gravataí não se luta apenas por vitória: luta-se também por honra, glória e a eterna aprovação do professor
+        Lucas.
+      </p>
+      <p id="text">
+        A competição, por sua vez, foi apresentada com um nível de dramaticidade tão elevado que alguns estudantes juram
+        ter ouvido trilhas sonoras épicas tocando mentalmente enquanto as regras eram explicadas. E que regras!
+        Elaboradas com tamanha precisão narrativa que pareciam mais um contrato de participação em uma saga heroica do
+        que simplesmente instruções escolares. Cada equipe deveria demonstrar não apenas raciocínio rápido, mas também
+        capacidade de invenção, narrativa, improviso e, acima de tudo, espírito criativo — o verdadeiro combustível para
+        sobreviver nessa arena simbólica.
+      </p>
+      <p id="text">
+        Os corredores do IFSul Gravataí logo começaram a ganhar ares de arena criativa: debates fervorosos, ideias sendo
+        rabiscadas e apagadas, teorias ousadas, risadas nervosas, planos mirabolantes e estratégias tão complexas que
+        poderiam, em outro contexto, ser consideradas roteiros prontos para filmes de aventura. Não era apenas uma
+        competição; era quase um ritual acadêmico em que a imaginação servia como arma principal, e a criatividade, como
+        escudo contra os desafios inesperados propostos pelo professor Lucas.
+      </p>
+      <p id="text">
+        E é justamente nessa mistura de entusiasmo, exagero narrativo e dedicação dramática que se encontra o charme
+        único da competição. Os Jogos Vorazes da 1IM não são simplesmente uma atividade da disciplina de Criatividade:
+        são um evento que ficará marcado na memória acadêmica dos participantes, um espetáculo onde cada aluno assume o
+        papel de protagonista de sua própria história, enfrentando tarefas dignas de uma epopeia estudantil. E, ao
+        final, independentemente de qual grupo seja coroado o grande vencedor, resta a certeza de que todos,
+        absolutamente todos, saem mais criativos, mais experientes e — por que não? — com uma narrativa excelente para
+        contar nos próximos anos. </p>
+      </p>
+    </div>
+  </body>
+
 </html>

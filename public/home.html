@@ -4,27 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/style.css" />
-    <link rel="icon" href="media/img/Logo.png" type="image/png" />
+    <link rel="icon" href="media/logos/Logo.png" type="image/png" />
     <title>Jogos Vorazes</title>
   </head>
 
   <body>
     <div id="cabecalho">
-      <img src="media/img/Logo_2.png" alt="Logo Jogos Vorazes" id="logo" />
+      <img src="media/logos/Logo_2.png" alt="Logo Jogos Vorazes" id="logo" />
 
       <div class="title">
         <ul id="nav">
           <li><a href="#" class="on">Home</a></li>
           <li><a href="sobre_os_jogos.html">Sobre</a></li>
           <li><a href="equipes.html">Equipes</a></li>
-          <li><a href="classificação.html">Classificação</a></li>
           <li><a href="noticias.html">Notícias</a></li>
-          <li><a href="galeria.html">Galeria</a></li>
-          <li><a href="test.html">em desenvolvimento</a></li>
-          <li><a href="posts.html">postagens</a></li>
         </ul>
       </div>
     </div>
+    <button id="admin-button">Entrar como Admin</button>
     <button id="toggle-theme">Tema Escuro</button>
     <script>
       const toggleButton = document.getElementById("toggle-theme");
@@ -36,39 +33,34 @@
           link.classList.toggle("dark-mode");
         });
 
-        toggleButton.textContent = document.body.classList.contains("dark-mode")
-          ? " Tema Claro"
-          : " Tema Escuro";
+        toggleButton.textContent = document.body.classList.contains("dark-mode") ? " Tema Claro" : " Tema Escuro";
       });
-
-      // código teste
-      const ws = new WebSocket("ws://localhost:8443/ws");
-
-      ws.onopen = () => {
-        console.log("Connected to WebSocket server");
-        ws.send("Hello from client!");
-      };
-
-      ws.onmessage = (event) => {
-        console.log(`Received from server: ${event.data}`);
-      };
-
-      ws.onclose = () => {
-        console.log("Disconnected from WebSocket server");
-      };
-
-      ws.onerror = (error) => {
-        console.error("WebSocket error:", error);
-      };
     </script>
     <div id="divtext1">
       <h1 id="apresentando">Apresentando: Jogos Vorazes da 1IM</h1>
-      <p id="text">
-        Texto apresentando a competição Texto apresentando a competição Texto
-        apresentando a competição Texto apresentando a competição Texto
-        apresentando a competição Texto apresentando a competição Texto
-        apresentando a competição
-      </p>
+      <p id="text">Bem-vindo ao site oficial dos Jogos Vorazes da 1IM! Aqui você encontrará todas as informações sobre esse evento emocionante, incluindo notícias, equipes participantes, classificação e uma galeria de fotos. Prepare-se para acompanhar cada momento dessa competição épica!</p>
+      <br />
+      <h3>Apresentação Geral</h3>
+      <p id="text">Os Jogos Vorazes da turma 1IM são uma competição criativa desenvolvida pelo professor Lucas com o objetivo de estimular imaginação, estratégia, improviso e trabalho em equipe. A atividade reúne desafios variados, onde cada grupo precisa demonstrar habilidades criativas e resolver situações inesperadas inspiradas no conceito de “arena”, mas adaptadas ao contexto escolar.</p>
+      <br />
+      <h3>Objetivos da Competição</h3>
+      <ul id="text">
+        <li>Estimular a criatividade dos estudantes.</li>
+        <li>Promover trabalho em grupo e colaboração.</li>
+        <li>Desenvolver soluções rápidas e inovadoras para desafios.</li>
+        <li>Criar um ambiente divertido e competitivo.</li>
+      </ul>
+      <br />
+      <h3>Datas Importantes</h3>
+      <ul id="text">
+        <li><strong>Início da competição:</strong> 25 de novembro de 2025</li>
+        <li><strong>Entrega dos desafios finais:</strong> 02 de dezembro de 2025</li>
+        <li><strong>Apresentação dos grupos:</strong> 03 de dezembro de 2025</li>
+        <li><strong>Resultado e encerramento:</strong> 05 de dezembro de 2025</li>
+      </ul>
+      <br />
+      <h3>Formato</h3>
+      <p id="text">A competição é dividida em etapas, cada uma contendo um desafio criativo diferente. Os grupos acumulam pontos ao longo das provas e, ao final, o grupo com maior pontuação será declarado o grande vencedor dos Jogos Vorazes da 1IM.</p>
     </div>
   </body>
 </html>
