@@ -7,7 +7,17 @@ toggleButton.addEventListener("click", () => {
     link.classList.toggle("dark-mode");
   });
 
-  toggleButton.textContent = document.body.classList.contains("dark-mode")
-    ? " Tema Claro"
-    : " Tema Escuro";
+  toggleButton.textContent = document.body.classList.contains("dark-mode") ? " Tema Claro" : " Tema Escuro";
 });
+
+if (localStorage.getItem("userId")) {
+  document.getElementById("admin-button").textContent = "Sair";
+
+  document.getElementById("admin-button").addEventListener("click", () => {
+    localStorage.removeItem("userId");
+    location.reload();
+  });
+} else
+  document.getElementById("admin-button").addEventListener("click", (e) => {
+    location.href = "/adm_login.html";
+  });
