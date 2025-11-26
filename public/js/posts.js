@@ -69,6 +69,7 @@ class Posts {
       this.createPostsBtn.addEventListener("click", () => {
         this.formposts.style.display = this.formposts.style.display === "none" ? "flex" : "none";
       });
+    else this.createPostsBtn.parentElement.remove();
 
     // Evento de envio
     this.formposts.addEventListener("submit", (e) => this.handleSubmit(e));
@@ -177,28 +178,24 @@ class Posts {
     const postDiv = document.createElement("div");
     postDiv.setAttribute("data-post-id", post.id);
     postDiv.classList.add("post");
-    postDiv.style.border = "1px solid #ccc";
-    postDiv.style.padding = "10px";
-    postDiv.style.marginBottom = "10px";
-    postDiv.style.borderRadius = "5px";
 
     const btnDelete = document.createElement("button");
     btnDelete.addEventListener("click", () => {
       this.deletePost(post.id);
     });
+    btnDelete.textContent = "Deletar";
 
     let mediaHTML = "";
     if (post.media_type === "image") {
-      mediaHTML = `<img src="${post.media_url}" width="200" />`;
+      mediaHTML = `<img src="${post.media_url}" />`;
     } else if (post.media_type === "video") {
       mediaHTML = `<video width="200" controls src="${post.media_url}"></video>`;
     }
 
     postDiv.innerHTML = `
       <h3>${post.title}</h3>
-      <p>${post.content}</p>
       ${mediaHTML}
-      <small>Criado por: ${post.user_name || "Usuário"}</small>
+      <p>${post.content}</p>
       <hr>
     `;
     if (!!userId) postDiv.appendChild(btnDelete);
